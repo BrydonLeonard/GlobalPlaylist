@@ -1,3 +1,5 @@
 tokens.json
 /__pycache__/*
 /global_playlist/__pycache__/*
+package/*
+package/
