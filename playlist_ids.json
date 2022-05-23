@@ -1,0 +1,484 @@
+{
+    "playlists": [
+        {
+            "id": "37i9dQZEVXbMxjQJh4Um8T",
+            "name": "Viral 50 - Andorra",
+            "owner": "Spotify",
+            "country_id": "AD"
+        },
+        {
+            "id": "37i9dQZEVXbMMy2roB9myp",
+            "name": "Top 50 - Argentina",
+            "owner": "Spotify",
+            "country_id": "AR"
+        },
+        {
+            "id": "37i9dQZEVXbKNHh6NIXu36",
+            "name": "Top 50 - Austria",
+            "owner": "Spotify",
+            "country_id": "AT"
+        },
+        {
+            "id": "37i9dQZEVXbJPcfkRz0wJ0",
+            "name": "Top 50 - Australia",
+            "owner": "Spotify",
+            "country_id": "AU"
+        },
+        {
+            "id": "37i9dQZEVXbJNSeeHswcKB",
+            "name": "Top 50 - Belgium",
+            "owner": "Spotify",
+            "country_id": "BE"
+        },
+        {
+            "id": "37i9dQZEVXbNfM2w2mq1B8",
+            "name": "Top 50 - Bulgaria",
+            "owner": "Spotify",
+            "country_id": "BG"
+        },
+        {
+            "id": "37i9dQZEVXbM4UZuIrvHvA",
+            "name": "Top 50 - UAE",
+            "owner": "Spotify",
+            "country_id": "AE"
+        },
+        {
+            "id": "37i9dQZEVXbLnolsZ8PSNw",
+            "name": "Top 50 - United Kingdom",
+            "owner": "Spotify",
+            "country_id": "GB"
+        },
+        {
+            "id": "37i9dQZEVXbMJJi3wgRbAy",
+            "name": "Top 50 - Uruguay",
+            "owner": "Spotify",
+            "country_id": "UY"
+        },
+        {
+            "id": "37i9dQZEVXbMZAjGMynsQX",
+            "name": "Top 50 - Costa Rica",
+            "owner": "Spotify",
+            "country_id": "CR"
+        },
+        {
+            "id": "37i9dQZEVXbObFQZ3JLcXt",
+            "name": "Top 50 - Indonesia",
+            "owner": "Spotify",
+            "country_id": "ID"
+        },
+        {
+            "id": "37i9dQZEVXbJlM6nvL1nD1",
+            "name": "Top 50 - Ecuador",
+            "owner": "Spotify",
+            "country_id": "EC"
+        },
+        {
+            "id": "37i9dQZEVXbJlfUljuZExa",
+            "name": "Top 50 - Malaysia",
+            "owner": "Spotify",
+            "country_id": "MY"
+        },
+        {
+            "id": "37i9dQZEVXbKGcyg6TFGx6",
+            "name": "Top 50 - Luxembourg",
+            "owner": "Spotify",
+            "country_id": "LU"
+        },
+        {
+            "id": "37i9dQZEVXbL3J0k32lWnN",
+            "name": "Top 50 - Denmark",
+            "owner": "Spotify",
+            "country_id": "DK"
+        },
+        {
+            "id": "37i9dQZEVXbNFJfN1Vw8d9",
+            "name": "Top 50 - Spain",
+            "owner": "Spotify",
+            "country_id": "ES"
+        },
+        {
+            "id": "37i9dQZF1DX4QcmlTAbT3k",
+            "name": "Hot Hits Sri Lanka",
+            "owner": "Spotify",
+            "country_id": "LK"
+        },
+        {
+            "id": "37i9dQZEVXbMx56Rdq5lwc",
+            "name": "Top 50 - Lithuania",
+            "owner": "Spotify",
+            "country_id": "LT"
+        },
+        {
+            "id": "37i9dQZEVXbMH2jvi6jvjk",
+            "name": "Top 50 - South Africa",
+            "owner": "Spotify",
+            "country_id": "ZA"
+        },
+        {
+            "id": "37i9dQZEVXbIQnj7RRhdSX",
+            "name": "Top 50 - Italy",
+            "owner": "Spotify",
+            "country_id": "IT"
+        },
+        {
+            "id": "37i9dQZEVXbJ6IpvItkve3",
+            "name": "Top 50 - Israel",
+            "owner": "Spotify",
+            "country_id": "IL"
+        },
+        {
+            "id": "37i9dQZEVXbNHwMxAkvmF8",
+            "name": "Top 50 - Hungary",
+            "owner": "Spotify",
+            "country_id": "HU"
+        },
+        {
+            "id": "37i9dQZF1DWWWXigQZAD8B",
+            "name": "Hot Hits Kenya",
+            "owner": "Spotify",
+            "country_id": "KE"
+        },
+        {
+            "id": "37i9dQZEVXbKMzVsSGQ49S",
+            "name": "Top 50 - Iceland",
+            "owner": "Spotify",
+            "country_id": "IS"
+        },
+        {
+            "id": "37i9dQZEVXbNBz9cRCSFkY",
+            "name": "Top 50 - Philippines",
+            "owner": "Spotify",
+            "country_id": "PH"
+        },
+        {
+            "id": "37i9dQZEVXbNOUPGj7tW6T",
+            "name": "Top 50 - Paraguay",
+            "owner": "Spotify",
+            "country_id": "PY"
+        },
+        {
+            "id": "37i9dQZEVXbNBxnXSWuAcX",
+            "name": "Viral 50 - Cyprus",
+            "owner": "Spotify",
+            "country_id": "CY"
+        },
+        {
+            "id": "37i9dQZEVXbLRQDuF5jeBp",
+            "name": "Top 50 - USA",
+            "owner": "Spotify",
+            "country_id": "US"
+        },
+        {
+            "id": "37i9dQZF1DWSHg3zCMrBDf",
+            "name": "Hot Hits Ghana",
+            "owner": "Spotify",
+            "country_id": "GH"
+        },
+        {
+            "id": "37i9dQZEVXbJiyhoAPEfMK",
+            "name": "Top 50 - Switzerland",
+            "owner": "Spotify",
+            "country_id": "CH"
+        },
+        {
+            "id": "37i9dQZEVXbLwpL8TjsxOG",
+            "name": "Top 50 - Hong Kong",
+            "owner": "Spotify",
+            "country_id": "HK"
+        },
+        {
+            "id": "37i9dQZEVXbLoATJ81JYXz",
+            "name": "Top 50 - Sweden",
+            "owner": "Spotify",
+            "country_id": "SE"
+        },
+        {
+            "id": "37i9dQZEVXbIVYVBNw9D5K",
+            "name": "Top 50 - Turkey",
+            "owner": "Spotify",
+            "country_id": "TR"
+        },
+        {
+            "id": "37i9dQZEVXbLy5tBFyQvd4",
+            "name": "Top 50 - Guatemala",
+            "owner": "Spotify",
+            "country_id": "GT"
+        },
+        {
+            "id": "37i9dQZF1DXa8nSANRU3EB",
+            "name": "Hot Hits Tanzania",
+            "owner": "Spotify",
+            "country_id": "TZ"
+        },
+        {
+            "id": "37i9dQZEVXbJqdarpmTJDL",
+            "name": "Top 50 - Greece",
+            "owner": "Spotify",
+            "country_id": "GR"
+        },
+        {
+            "id": "37i9dQZEVXbKj23U1GF4IR",
+            "name": "Top 50 - Canada",
+            "owner": "Spotify",
+            "country_id": "CA"
+        },
+        {
+            "id": "37i9dQZEVXbLesry2Qw2xS",
+            "name": "Top 50 - Estonia",
+            "owner": "Spotify",
+            "country_id": "EE"
+        },
+        {
+            "id": "37i9dQZEVXbM8SIrkERIYl",
+            "name": "Top 50 - New Zealand",
+            "owner": "Spotify",
+            "country_id": "NZ"
+        },
+        {
+            "id": "37i9dQZF1DXdyRa6wbuWN6",
+            "name": "Hot Hits Iraq",
+            "owner": "Spotify",
+            "country_id": "IQ"
+        },
+        {
+            "id": "37i9dQZEVXbKCF6dqVpDkS",
+            "name": "Top 50 - Netherlands",
+            "owner": "Spotify",
+            "country_id": "NL"
+        },
+        {
+            "id": "37i9dQZEVXbLdGSmz6xilI",
+            "name": "Top 50 - Vietnam",
+            "owner": "Spotify",
+            "country_id": "VN"
+        },
+        {
+            "id": "37i9dQZEVXbKAbrMR8uuf7",
+            "name": "Top 50 - Dominican Republic",
+            "owner": "Spotify",
+            "country_id": "DM"
+        },
+        {
+            "id": "37i9dQZEVXbK4gjvS1FjPY",
+            "name": "Top 50 - Singapore",
+            "owner": "Spotify",
+            "country_id": "SG"
+        },
+        {
+            "id": "37i9dQZEVXbKAbrMR8uuf7",
+            "name": "Top 50 - Dominican Republic",
+            "owner": "Spotify",
+            "country_id": "DO"
+        },
+        {
+            "id": "37i9dQZEVXbKXQ4mDTEBXq",
+            "name": "Top 50 - Japan",
+            "owner": "Spotify",
+            "country_id": "JP"
+        },
+        {
+            "id": "37i9dQZEVXbOa2lmxNORXQ",
+            "name": "Top 50 - Colombia",
+            "owner": "Spotify",
+            "country_id": "CO"
+        },
+        {
+            "id": "37i9dQZEVXbL0GavIqMTeb",
+            "name": "Top 50 - Chile",
+            "owner": "Spotify",
+            "country_id": "CL"
+        },
+        {
+            "id": "37i9dQZEVXbNZbJ6TZelCq",
+            "name": "Top 50 - Romania",
+            "owner": "Spotify",
+            "country_id": "RO"
+        },
+        {
+            "id": "37i9dQZEVXbISk8kxnzfCq",
+            "name": "Top 50 - Nicaragua",
+            "owner": "Spotify",
+            "country_id": "NI"
+        },
+        {
+            "id": "37i9dQZEVXbMnz8KIWsvf9",
+            "name": "Top 50 - Thailand",
+            "owner": "Spotify",
+            "country_id": "TH"
+        },
+        {
+            "id": "37i9dQZF1DWZCOSaet9tpB",
+            "name": "Hot Hits Naija ",
+            "owner": "Spotify",
+            "country_id": "NE"
+        },
+        {
+            "id": "4Y5S2hGMK1utUNGlYae3iu",
+            "name": "Hot Hits Kazakhstan",
+            "owner": "Spotify",
+            "country_id": "KZ"
+        },
+        {
+            "id": "37i9dQZEVXbJWuzDrTxbKS",
+            "name": "Top 50 - Latvia",
+            "owner": "Spotify",
+            "country_id": "LV"
+        },
+        {
+            "id": "37i9dQZEVXbLZ52XmnySJg",
+            "name": "Top 50 - India",
+            "owner": "Spotify",
+            "country_id": "IN"
+        },
+        {
+            "id": "37i9dQZEVXbJfdy5b0KP7W",
+            "name": "Top 50 - Peru",
+            "owner": "Spotify",
+            "country_id": "PE"
+        },
+        {
+            "id": "37i9dQZEVXbO3qyFxbkOE1",
+            "name": "Top 50 - Mexico",
+            "owner": "Spotify",
+            "country_id": "MX"
+        },
+        {
+            "id": "37i9dQZEVXbKyJS56d1pgi",
+            "name": "Top 50 - Portugal",
+            "owner": "Spotify",
+            "country_id": "PT"
+        },
+        {
+            "id": "37i9dQZEVXbMXbN3EUUhlg",
+            "name": "Top 50 - Brazil",
+            "owner": "Spotify",
+            "country_id": "BR"
+        },
+        {
+            "id": "37i9dQZEVXbKkidEfWYRuD",
+            "name": "Top 50 - Ukraine",
+            "owner": "Spotify",
+            "country_id": "UA"
+        },
+        {
+            "id": "37i9dQZF1DWZCOSaet9tpB",
+            "name": "Hot Hits Naija ",
+            "owner": "Spotify",
+            "country_id": "NG"
+        },
+        {
+            "id": "37i9dQZEVXbIPWwFssbupI",
+            "name": "Top 50 - France",
+            "owner": "Spotify",
+            "country_id": "FR"
+        },
+        {
+            "id": "37i9dQZEVXbJp9wcIM9Eo5",
+            "name": "Top 50 - Honduras",
+            "owner": "Spotify",
+            "country_id": "HN"
+        },
+        {
+            "id": "37i9dQZEVXbIP3c3fqVrJY",
+            "name": "Top 50 - Czech Republic",
+            "owner": "Spotify",
+            "country_id": "CZ"
+        },
+        {
+            "id": "37i9dQZF1DX794NyvTu6nv",
+            "name": "Hot Hits Bangladesh",
+            "owner": "Spotify",
+            "country_id": "BD"
+        },
+        {
+            "id": "37i9dQZEVXbJU9eQpX8gPT",
+            "name": "Top 50 - Morocco",
+            "owner": "Spotify",
+            "country_id": "MA"
+        },
+        {
+            "id": "37i9dQZEVXbLrQBcXqUtaC",
+            "name": "Top 50 - Saudi Arabia",
+            "owner": "Spotify",
+            "country_id": "SA"
+        },
+        {
+            "id": "37i9dQZEVXbJqfMFK4d691",
+            "name": "Top 50 - Bolivia",
+            "owner": "Spotify",
+            "country_id": "BO"
+        },
+        {
+            "id": "37i9dQZEVXbNxXF4SkHj9F",
+            "name": "Top 50 - South Korea",
+            "owner": "Spotify",
+            "country_id": "KR"
+        },
+        {
+            "id": "37i9dQZEVXbKM896FDX8L1",
+            "name": "Top 50 - Ireland",
+            "owner": "Spotify",
+            "country_id": "IE"
+        },
+        {
+            "id": "37i9dQZEVXbLn7RQmT5Xv2",
+            "name": "Top 50 - Egypt",
+            "owner": "Spotify",
+            "country_id": "EG"
+        },
+        {
+            "id": "37i9dQZEVXbKypXHVwk1f0",
+            "name": "Top 50 - Panama",
+            "owner": "Spotify",
+            "country_id": "PA"
+        },
+        {
+            "id": "37i9dQZEVXbJvfa0Yxg7E7",
+            "name": "Top 50 - Norway",
+            "owner": "Spotify",
+            "country_id": "NO"
+        },
+        {
+            "id": "37i9dQZEVXbMnZEatlMSiu",
+            "name": "Top 50 - Taiwan",
+            "owner": "Spotify",
+            "country_id": "TW"
+        },
+        {
+            "id": "37i9dQZEVXbKIVTPX9a2Sb",
+            "name": "Top 50 - Slovakia",
+            "owner": "Spotify",
+            "country_id": "SK"
+        },
+        {
+            "id": "37i9dQZEVXbMxcczTSoGwZ",
+            "name": "Top 50 - Finland",
+            "owner": "Spotify",
+            "country_id": "FI"
+        },
+        {
+            "id": "37i9dQZEVXbJiZcmkrIHGU",
+            "name": "Top 50 - Germany",
+            "owner": "Spotify",
+            "country_id": "DE"
+        },
+        {
+            "id": "37i9dQZEVXbLxoIml4MYkT",
+            "name": "Top 50 - El Salvador",
+            "owner": "Spotify",
+            "country_id": "SV"
+        },
+        {
+            "id": "37i9dQZEVXbN6itCcaL3Tt",
+            "name": "Top 50 - Poland",
+            "owner": "Spotify",
+            "country_id": "PL"
+        },
+        {
+            "id": "7LDMNPhIAt93RX0GzHttRV",
+            "name": "Top 50 - Pakistan",
+            "owner": "Spotify",
+            "country_id": "PK"
+        }
+    ]
+}
