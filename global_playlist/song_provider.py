@@ -2,12 +2,11 @@ import os, json, random
 from global_playlist.data_types import Playlist
 
 class SongProvider:
-    REGIONAL_PLAYLIST_ID_CACHE = "./playlist_ids.json"
-    
-    def __init__(self, client, countries, re_cache_playlists = False):
+    def __init__(self, client, countries, cache, re_cache_playlists = False):
         self.client = client
         self.re_cache_playlists = re_cache_playlists
         self.playlists = []
+        self.cache = cache
         self.__get_global_playlists(countries)
 
     def get_random_global_songs(self, count):
@@ -37,14 +36,18 @@ class SongProvider:
         if len(self.playlists) > 0:
             return self.playlists
 
+        cached_playlists = []
+        if not self.re_cache_playlists:
+            cached_playlists = self.cache.load_playlists()
+
         # Fetch from cache
-        if not os.path.exists(self.REGIONAL_PLAYLIST_ID_CACHE):
-            print("No regional playlist cache found. Fetching IDs.")
-            self.playlists = filter(None, [self.__get_spotify_playlist_for_country(id, countries[id]) for id in countries.keys()])
-            self.__save__playlists()
+        if len(cached_playlists) == 0:
+            print("No cached regional playlists found. Fetching a new list.")
+            self.playlists = list(filter(None, [self.__get_spotify_playlist_for_country(id, countries[id]) for id in countries.keys()]))
+            self.cache.save_playlists(self.playlists)
         else:
             print("Found a regional playlist cache. Loading.")
-            self.__load_playlists()
+            self.playlists = self.cache.load_playlists()
             cached_country_ids = set([playlist.country_id for playlist in self.playlists])
             requested_country_ids = set([id for id in countries.keys()])
             missing_country_ids = requested_country_ids - cached_country_ids
@@ -60,7 +63,7 @@ class SongProvider:
                         updated_cache = True
 
                 if updated_cache:
-                    self.__save__playlists()
+                    self.cache.save_playlists(self.playlists)
             
         return self.playlists
 
@@ -82,20 +85,6 @@ class SongProvider:
             chosen.append(candidates.pop(random.randint(0, len(candidates) - 1)))
         
         return chosen
-    
-    def __save__playlists(self):
-        playlists = {
-            'playlists': [playlist.dict() for playlist in self.playlists]
-        }
-
-        with open(self.REGIONAL_PLAYLIST_ID_CACHE, 'w') as f:
-            f.write(json.dumps(playlists, indent=4))
-
-    def __load_playlists(self):
-        with open(self.REGIONAL_PLAYLIST_ID_CACHE, 'r') as f:
-            playlist_json = json.loads(f.read().replace('\n', ''))
-
-            self.playlists = [Playlist(p['id'], p['name'], p['owner'], p['country_id']) for p in playlist_json['playlists']]
         
     def __get_spotify_playlist_for_country(self, country_id, country_name):
         """

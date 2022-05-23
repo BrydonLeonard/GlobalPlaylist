@@ -5,14 +5,14 @@ from global_playlist.data_types import Song, ClientToken
 class SpotifyClient:
     ACCOUNTS_ENDPOINT = 'https://accounts.spotify.com'
     API_ENDPOINT = 'https://api.spotify.com/v1'
-    TOKEN_FILE = './tokens.json'
 
-    def __init__(self, api_id, api_secret):
+    def __init__(self, api_id, api_secret, cache):
         self.api_id = api_id
         self.api_secret = api_secret
         self.countries = None
         self.app_token = None
         self.client_token = None
+        self.cache = cache
         self.__country_mapping = SpotifyClient.__iso3166_mapping()
         self.__local_auth_flow()
         self.current_user_id = None
@@ -142,29 +142,23 @@ class SpotifyClient:
     def __local_auth_flow(self):
         self.app_token = self.__get_token()
 
-        # Check if we have a token
-        #   Yes - Refresh it and save
-        #   No - Get one and save
-        if not os.path.exists(self.TOKEN_FILE):
-            self.__generate_and_save_new_creds()
-        else:
-            self.__load_cached_client_creds()
+        self.client_token = self.cache.load_client_token()
 
-            if (not self.client_token):
-                print("Creds cache existed, but was not well formed")
-                self.__generate_and_save_new_creds()
-            elif (self.client_token.expires_at < datetime.now()):
-                self.__refresh_and_save_new_creds()
-            else:
-                print('Found valid cached creds. Using those')
+        if (not self.client_token):
+            print("Creds cache existed, but was not well formed")
+            self.client_token = self.__generate_and_save_new_creds()
+            self.cache.save_client_token(self.client_token)
+        elif (self.client_token.expires_at < datetime.now()):
+            self.client_token = self.__refresh_and_save_new_creds()
+            self.cache.save_client_token(self.client_token)
+        else:
+            print('Found valid cached creds. Using those')
 
     def __generate_and_save_new_creds(self):
         print("Starting new auth process")
         print("Please follow this link. Once you have, paste the redirect link back here:")
         print(self.__generate_auth_link())
         redirect_link = input("Redirect link:")
-
-        print(f"Attempting to match against {redirect_link}")
 
         code_matcher = r'http://localhost:8888/callback\?code=(.+?)(?:&.+|$)'
 
@@ -177,45 +171,19 @@ class SpotifyClient:
 
         code = match.group(1)
 
-        auth_token_response = json.loads(self.__request_user_auth_token(code))
+        auth_token_response = self.__request_user_auth_token(code)
 
         if ('access_token' not in auth_token_response):
             raise Exception(f"Something went wrong while getting client creds. API response: {auth_token_response}")
 
-        self.client_token = self.__client_token_from_auth_response(auth_token_response)
-
-        self.__save_tokens()
+        return self.__client_token_from_auth_response(auth_token_response)
 
     def __refresh_and_save_new_creds(self):
         print('No valid cached creds')
         # Creds have expired, so get some new ones
-        response = json.loads(self.__request_refreshed_user_auth_token())
+        response = self.__request_refreshed_user_auth_token()
 
-        self.client_token = self.__client_token_from_auth_response(response)
-
-        self.__save_tokens()
-
-    def __load_cached_client_creds(self):
-        try:
-            with open(self.TOKEN_FILE, 'r') as f:
-                cached_creds = json.loads(f.read().replace('\n', ''))
-                self.client_token = ClientToken(
-                    cached_creds['client_token'],
-                    cached_creds['client_refresh_token'],
-                    datetime.fromtimestamp(cached_creds['client_token_expires_at'])
-                )
-        except:
-            print("Something went wrong while loading creds")
-
-    def __save_tokens(self):
-        tokens = {
-            'client_token': self.client_token.token,
-            'client_refresh_token': self.client_token.refresh_token,
-            'client_token_expires_at': self.client_token.expires_at.timestamp()
-        }
-
-        with open(self.TOKEN_FILE, 'w') as f:
-            f.write(json.dumps(tokens, indent=4))
+        return self.__client_token_from_auth_response(response)
 
     def __client_token_from_auth_response(self, response):
         refresh_token = None
@@ -244,58 +212,53 @@ class SpotifyClient:
                 ])
         return urllib.parse.quote_plus(url, safe=';/?:@&=+$,')
 
+    def __auth_token_request(self, additional_data):
+        """
+        :param additional_data: A list of key:value tuples that will be sent in the client auth token request
+        """
+        return self.__validated_json_auth_response(
+            requests.request(
+                'POST',
+                f"{self.ACCOUNTS_ENDPOINT}/api/token",
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data = [
+                    ('client_id', self.api_id),
+                    ('client_secret', self.api_secret)
+                ] + additional_data
+            ).text
+        )
+
     def __request_user_auth_token(self, user_auth_code):
-        token_response = requests.request(
-            'POST',
-            f"{self.ACCOUNTS_ENDPOINT}/api/token",
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data = [
+        return self.__auth_token_request([
                 ('grant_type', 'authorization_code'),
                 ('code', user_auth_code),
-                ('redirect_uri', 'http://localhost:8888/callback'),
-                ('client_id', self.api_id),
-                ('client_secret', self.api_secret)
-            ]
-        )
-
-        return token_response.text
+                ('redirect_uri', 'http://localhost:8888/callback')
+            ])
     
     def __request_refreshed_user_auth_token(self):
-        token_response = requests.request(
-            'POST',
-            f"{self.ACCOUNTS_ENDPOINT}/api/token",
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data = [
+        return self.__auth_token_request([
                 ('grant_type', 'refresh_token'),
-                ('refresh_token', self.client_token.refresh_token),
-                ('client_id', self.api_id),
-                ('client_secret', self.api_secret)
-            ]
-        )
-
-        return token_response.text
-
+                ('refresh_token', self.client_token.refresh_token)
+            ])
 
     def __get_token(self):
-        token_response = requests.request(
-            'POST',
-            f"{self.ACCOUNTS_ENDPOINT}/api/token",
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data = [
-                ('grant_type', 'client_credentials'),
-                ('client_id', self.api_id),
-                ('client_secret', self.api_secret)
-            ]
-        )
+        return self.__auth_token_request([
+                ('grant_type', 'client_credentials')
+            ])
 
-        return json.loads(token_response.text)['access_token']
+    def __validated_json_auth_response(self, response):
+        """
+        Validates an auth response by checking whether it has an access token. Raises an exception if it doesn't
+
+        :param response: The serialized response from the Spotify API
+        """
+        response_json = json.loads(response)
+        if 'access_token' not in response_json:
+            raise Exception(f"Something went wro ng while fetching an API token. The response was: {response_json}")
+        return response_json
 
     def __iso3166_mapping():
-        with open('./country_mapping.json') as file:
+        with open('./resources/country_mapping.json') as file:
             return json.loads(''.join(file.readlines()))

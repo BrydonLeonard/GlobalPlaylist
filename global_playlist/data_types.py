@@ -6,7 +6,10 @@ class Playlist:
         self.country_id = country_id
     
     def __str__(self):
-        return f"[{self.id}] {self.name} (owner:{self.owner})"
+        return f"[{self.id}] '{self.name}' by '{self.owner}' ({self.country_id})"
+
+    def __repr__(self):
+        return self.__str__()
 
     def dict(self):
         return {
@@ -31,3 +34,7 @@ class ClientToken:
         self.token = token
         self.refresh_token = refresh_token
         self.expires_at = expires_at
+
+class ConfigKeys:
+    APP_SECRET = "app_secret"
+    APP_ID = "app_id"
