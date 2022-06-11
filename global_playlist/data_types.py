@@ -20,14 +20,18 @@ class Playlist:
         }
 
 class Song:
-    def __init__(self, id, name, uri, artists):
+    def __init__(self, id, name, uri, artist_ids, artist_names):
         self.id = id
-        self.name = name.encode('utf-8')
+        self.name = name
         self.uri = uri
-        self.artists = artists
+        # Not super great to store these like this, since there's nothing linking IDs to names,
+        # but for now I only use the names when I want some human-readable version of a given
+        # song's artists, so this is fine.
+        self.artist_ids = artist_ids
+        self.artist_names = artist_names
 
     def __str__(self):
-        return f"[{self.id}] {self.name} ({self.artist})"
+        return f"[{self.id}] {self.name} ({','.join(self.artist_names)})"
 
 class ClientToken:
     def __init__(self, token, refresh_token, expires_at):

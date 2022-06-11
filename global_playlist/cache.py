@@ -8,6 +8,7 @@ class DDBCache:
     # the door open for supporting multiple users in future.
     TOKEN_TABLE = 'GlobalPlaylist-Tokens'
     CONFIG_TABLE = 'GlobalPlaylist-Config'
+    SONG_HISTORY_TABLE = 'GlobalPlaylist-SongHistoryTable'
 
     CLIENT_TOKEN_ID="client_token"
 
@@ -19,6 +20,7 @@ class DDBCache:
         self.playlist_table = ddb_resource.Table(self.PLAYLIST_TABLE)
         self.token_table = ddb_resource.Table(self.TOKEN_TABLE)
         self.config_table = ddb_resource.Table(self.CONFIG_TABLE)
+        self.song_history_table = ddb_resource.Table(self.SONG_HISTORY_TABLE)
 
     def load_app_config(self):
         playlist_scan_response = self.config_table.scan(
@@ -86,5 +88,37 @@ class DDBCache:
                         'id': playlist.id,
                         'name': playlist.name,
                         'owner': playlist.owner
+                    }
+                )
+
+    def load_used_songs(self):
+        """
+        Loads the list of previously used songs.
+        :return A list of song Ids
+        """
+        scan_result= self.song_history_table.scan(
+            Select='SPECIFIC_ATTRIBUTES',
+            ProjectionExpression = 'id'
+        )['Items']
+
+        return [song['id'] for song in scan_result]
+
+
+
+    def add_used_songs(self, songs):
+        """
+        Saves a list of songs so that they won't be used again
+        """
+        iso_date_string = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+            
+        with self.song_history_table.batch_writer() as batch:
+            for song in songs:
+                batch.put_item(
+                    Item={
+                        'id': song.id,
+                        'used_date': iso_date_string,
+                        # The info below isn't really _useful_, but it makes it easier to read the database items (manually)
+                        'name': song.name,
+                        'artists': ','.join(song.artist_names)
                     }
                 )

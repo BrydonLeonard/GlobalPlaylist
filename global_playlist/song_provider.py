@@ -13,18 +13,34 @@ class SongProvider:
         """
         Retrieve `count` songs from different playlists
         """
-        playlists = self.__choose_playlists(count)
+        playlist_ordering = self.__random_playlist_ordering()
+
         artists = set()
         songs = []
 
-        for playlist in playlists:
-            chosen_song = None
-            # Make sure that no artist in a proposed new track is listed on a track already in the list
-            while not chosen_song or len(set(chosen_song.artists) - artists) < len(chosen_song.artists):
-                chosen_song = self.__one_song_from_playlist(playlist.id)
+        # If the number of artists in the song's list is decreased when we remove all already chosen artists, 
+        # we can drop the song because we don't want artists showing up multiple times
+        artist_not_present = lambda s: len(set(s.artist_ids) - artists) == len(s.artist_ids)
+
+        used_songs = self.cache.load_used_songs()
+
+        rejection_set = set(used_songs)
+
+        song_not_rejected = lambda song: song.id not in rejection_set
+
+        while (len(songs) < count and len(playlist_ordering) > 0):
+            # The ordering is random, so it doesn't really matter if we take from the front or back
+            next_playlist = playlist_ordering.pop()
+
+            valid_songs = self.__valid_songs_from_playlist(next_playlist.id, [artist_not_present, song_not_rejected])
+
+            if (len(valid_songs) == 0):
+                continue
+            
+            chosen_song = valid_songs[random.randint(0, len(valid_songs) - 1)]
 
             songs.append(chosen_song)     
-            artists.update(chosen_song.artists)           
+            artists.update(chosen_song.artist_ids)           
 
         return songs
 
@@ -67,21 +83,18 @@ class SongProvider:
             
         return self.playlists
 
-    def __one_song_from_playlist(self, playlist_id):
-        tracks = self.client.get_playlist_tracks(playlist_id)
-        if (len(tracks) < 1):
-            print(f"Playlist {playlist_id} has no tracks")
-            return None
-        return tracks[random.randint(0, len(tracks) - 1)]
+    def __valid_songs_from_playlist(self, playlist_id, predicates = []):
+        songs = self.client.get_playlist_tracks(playlist_id)
 
-    def __choose_playlists(self, count):
-        if (count > len(self.playlists)):
-            return self.playlists
+        # This beauty applies all the predicates
+        return list(filter(lambda song: all([predicate(song) for predicate in predicates]), songs))
 
+
+    def __random_playlist_ordering(self):
         candidates = self.playlists.copy()
         chosen = []
 
-        for i in range(0, count):
+        for i in range(0, len(self.playlists)):
             chosen.append(candidates.pop(random.randint(0, len(candidates) - 1)))
         
         return chosen

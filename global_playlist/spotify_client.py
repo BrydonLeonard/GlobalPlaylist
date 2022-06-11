@@ -59,7 +59,18 @@ class SpotifyClient:
             ]
         )
 
-        return [Song(item['track']['id'], item['track']['name'], item['track']['uri'], [artist['id'] for artist in item['track']['artists']]) for item in json.loads(response)['tracks']['items']]
+
+        return [
+            Song(
+                item['track']['id'], 
+                item['track']['name'], 
+                item['track']['uri'], 
+                # Dear reader, forgive me, for I have sinned. This pairs up artist names and IDs, splats them, zips the pairs
+                # (which creates two lists, where the first contains all first elements of the tuple and the second contains all the seconds), 
+                # makes that into a list, and splats it again
+                *list(zip(*[(artist['id'], artist['name']) for artist in item['track']['artists']]))
+            ) for item in json.loads(response)['tracks']['items']
+        ]
         
     def get_current_user_id(self):
         if not self.current_user_id:

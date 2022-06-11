@@ -1,9 +1,8 @@
 
 class PlaylistManager:
-    GLOBAL_PLAYLIST_NAME = "A beta trip around the world"
-
-    def __init__(self, client):
+    def __init__(self, client, playlist_name):
         self.client = client
+        self.global_playlist_name = playlist_name
 
     def create_global_playlist(self, songs):
         """
@@ -28,7 +27,7 @@ class PlaylistManager:
     def __get_existing_global_playlist_id(self):
         current_user_playlists = self.client.get_current_user_playlists()
 
-        filtered_playlists = list(filter(lambda playlist: playlist['name'] == self.GLOBAL_PLAYLIST_NAME, current_user_playlists))
+        filtered_playlists = list(filter(lambda playlist: playlist['name'] == self.global_playlist_name, current_user_playlists))
 
         if (len(filtered_playlists) == 1):
             return filtered_playlists[0]['id']
@@ -40,7 +39,7 @@ class PlaylistManager:
 
     def __create_global_playlist(self):
         return self.client.create_playlist_for_current_user(
-            self.GLOBAL_PLAYLIST_NAME,
+            self.global_playlist_name,
             "An automatically generated playlist with songs selected from random \"Top 50\" playlists around the world! 🌎"
         )
 

@@ -1,9 +1,9 @@
 # Global Playlist
 
-To run locally:
+To run locally:, set up your AWS creds in your env vars and run:
 
 ```
-python generate_playlists.py
+python lambda_function.py
 ```
 
 
