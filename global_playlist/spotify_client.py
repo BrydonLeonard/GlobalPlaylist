@@ -139,7 +139,7 @@ class SpotifyClient:
             if response.ok:
                 return response.text
             else:
-                print("Response was not OK: " + response)
+                print("Response was not OK: " + response.text)
             
             retries = retries - 1
             
@@ -164,7 +164,7 @@ class SpotifyClient:
             if (response.ok):
                 return response.text
             else:
-                print("Response was not OK: " + response)
+                print("Response was not OK: " + response.text)
 
             retries = retries - 1
 
@@ -285,7 +285,7 @@ class SpotifyClient:
         """
         response_json = json.loads(response)
         if 'access_token' not in response_json:
-            raise Exception(f"Something went wro ng while fetching an API token. The response was: {response_json}")
+            raise Exception(f"Something went wrong while fetching an API token. The response was: {response_json}")
         return response_json
 
     def __iso3166_mapping():

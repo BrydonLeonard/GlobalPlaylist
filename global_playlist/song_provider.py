@@ -106,10 +106,10 @@ class SongProvider:
 
         :param country_id: ISO 3166 country code
         """
-        search_terms = ['Top 50', 'Viral 50', 'Hot']
+        search_terms = ['Top 50', 'Viral 50']
         print(f"Searching in {country_name}")
         for term in search_terms:
-            playlists = self.client.search_playlists(f"{term} {country_name}", country_id, True)
+            playlists = self.client.search_playlists(f"{term} {country_name}", country_id, False)
 
             filtered_playlists = [Playlist(playlist['id'], playlist['name'], playlist['owner']['display_name'], country_id) for playlist in playlists if self.__meets_playlist_requirements(playlist)]
             
@@ -119,4 +119,4 @@ class SongProvider:
         return None
 
     def __meets_playlist_requirements(self, playlist_json):
-        return playlist_json['owner']['display_name'] == 'Spotify'
+        return playlist_json['owner']['display_name'] == 'Spotify' and "50" in playlist_json['name']
