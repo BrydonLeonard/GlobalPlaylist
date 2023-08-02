@@ -123,33 +123,51 @@ class SpotifyClient:
 # ---------------- ---------------- ---------------------#
 
     def __mutate_playlist_request(self, request_type, playlist_id, data):
-        return requests.request(
-            request_type,
-            f"{self.API_ENDPOINT}/playlists/{playlist_id}/tracks",
-            headers = {
-                'Authorization': f"Bearer {self.client_token.token}",
-                'Content-Type': 'application/json'
-            },
-            data = data
-        ).text
+        retries = 3
+
+        while retries > 0:
+            response = requests.request(
+                request_type,
+                f"{self.API_ENDPOINT}/playlists/{playlist_id}/tracks",
+                headers = {
+                    'Authorization': f"Bearer {self.client_token.token}",
+                    'Content-Type': 'application/json'
+                },
+                data = data
+            )
+
+            if response.ok:
+                return response.text
+            else:
+                print("Response was not OK: " + response)
+            
+            retries = retries - 1
+            
 
     def __get_request(self, path, params = [], use_app_creds=False):
-        token = self.client_token.token
-        if use_app_creds:
-            token = self.app_token
-        response = requests.request(
-            'GET',
-            f"{self.API_ENDPOINT}{path}",
-            headers = {
-                'Authorization': f"Bearer {token}",
-                'Content-Type': 'application/json'
-            },
-            params = params
-        ).text
+        retries = 3
 
-        return response
+        while retries > 0:
+            token = self.client_token.token
+            if use_app_creds:
+                token = self.app_token
+            response = requests.request(
+                'GET',
+                f"{self.API_ENDPOINT}{path}",
+                headers = {
+                    'Authorization': f"Bearer {token}",
+                    'Content-Type': 'application/json'
+                },
+                params = params
+            )
 
-    # TODO: Make this portable by storing somewhere other than a text file
+            if (response.ok):
+                return response.text
+            else:
+                print("Response was not OK: " + response)
+
+            retries = retries - 1
+
     def __local_auth_flow(self):
         self.app_token = self.__get_token()
 
